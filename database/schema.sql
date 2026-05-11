@@ -623,3 +623,34 @@ CREATE TABLE solicitudLiberacion (
         REFERENCES estudiante(idEstudiante)
 );
 GO
+
+-- ============================================================
+-- REGISTROS INICIALES
+-- ============================================================
+INSERT INTO carrera (nombreCarrera)
+VALUES
+('Ingeniería en Administración'),
+
+('Licenciatura en Administración'),
+
+('Arquitectura'),
+
+('Licenciatura en Biología'),
+
+('Licenciatura en Turismo'),
+
+('Ingeniería Civil'),
+
+('Contador Público'),
+
+('Ingeniería Eléctrica'),
+
+('Ingeniería Electromecánica'),
+
+('Ingeniería en Gestión Empresarial'),
+
+('Ingeniería en Desarrollo de Aplicaciones'),
+
+('Ingeniería en Sistemas Computacionales'),
+
+('Ingeniería en Tecnologías de la Información y Comunicaciones');
