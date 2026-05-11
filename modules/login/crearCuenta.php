@@ -1,5 +1,4 @@
 <?php
-
 require_once "conexion.php";
 
 if($_SERVER['REQUEST_METHOD'] != 'POST'){
@@ -25,18 +24,6 @@ $correo = trim($_POST['correo']);
 $password = $_POST['password'];
 $confirmPassword = $_POST['confirmPassword'];
 $semestreActual = $_POST['semestreActual'];
-
-
-
-$sql = "SELECT
-        idCarrera,
-        nombreCarrera
-        FROM carrera
-        ORDER BY nombreCarrera";
-
-$stmt = $conexion->query($sql);
-
-$carreras = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 

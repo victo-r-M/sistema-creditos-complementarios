@@ -1,5 +1,4 @@
 <?php
-
 require_once "../../modules/login/conexion.php";
 
 $sql = "SELECT
@@ -23,6 +22,7 @@ $carreras = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Crear Cuenta | TecNM</title>
+  
 
   <!-- Noto Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -144,7 +144,7 @@ $carreras = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
           </div>
 
-<form action="../../modules/login/crearCuenta.php" method="POST">
+<form action="../../modules/login/crearCuenta.php" method="POST"   autocomplete="off">
 
             <!-- GRID -->
 
@@ -223,6 +223,9 @@ $carreras = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     name="noControl"
                     placeholder="Ej. 22490001"
                     required
+                    pattern="[0-9]{8}"
+                    maxlength="8"
+
                   >
 
                 </div>
@@ -305,6 +308,8 @@ $carreras = $stmt->fetchAll(PDO::FETCH_ASSOC);
                   type="email"
                   name="correo" 
                   placeholder="usuario@chetumal.tecnm.mx"
+                   pattern="^[a-zA-Z0-9._%+-]+@chetumal\.tecnm\.mx$"
+                  title="Debe ingresar un correo institucional @chetumal.tecnm.mx"
                   required
                 >
 
@@ -328,6 +333,8 @@ $carreras = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     type="password"
                     name="password"
                     placeholder="Ingrese contraseña"
+                      autocomplete="new-password"
+
                     required
                   >
 
@@ -347,6 +354,8 @@ $carreras = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     type="password"
                     name="confirmPassword"
                     placeholder="Repita contraseña"
+                      autocomplete="new-password"
+
                     required
                   >
 

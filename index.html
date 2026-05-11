@@ -115,7 +115,7 @@
 
           </div>
 
-          <form>
+          <form   action="modules/login/inicioSesion.php" method="POST">
 
             <div class="input-group">
 
@@ -130,7 +130,10 @@
                 <input
                   type="email"
                   id="correo"
-                  placeholder="usuario@tecnm.mx"
+                  name="correo"
+                  placeholder="usuario@chetumal.tecnm.mx"
+                   pattern="^[a-zA-Z0-9._%+-]+@chetumal\.tecnm\.mx$"
+                   title="Debe ingresar un correo institucional @chetumal.tecnm.mx"
                   required
                 >
 
@@ -151,7 +154,10 @@
                 <input
                   type="password"
                   id="password"
+                  name="password"
                   placeholder="Ingrese su contraseña"
+                    autocomplete="new-password"
+
                   required
                 >
 
