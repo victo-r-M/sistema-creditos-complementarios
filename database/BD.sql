@@ -739,7 +739,7 @@ INSERT INTO usuarios
 VALUES
 (
     'departamento@chetumal.tecnm.mx',
-    '$2y$10$wH7xYJm0L9Y9YwLw2uQ6bOVB3dLxjX9Wj5q8zQxJ3A0v1VQmM8m6G',
+    '$2y$10$FiAIS6kwuPJO3OFdqnS7FeKqe6wuS/WkQwVl0afYxErC.XxwuuRru',
     'departamento',
     GETDATE(),
     'S'
@@ -747,7 +747,7 @@ VALUES
 
 (
     'comite@chetumal.tecnm.mx',
-    '$2y$10$wH7xYJm0L9Y9YwLw2uQ6bOVB3dLxjX9Wj5q8zQxJ3A0v1VQmM8m6G',
+    '$2y$10$FiAIS6kwuPJO3OFdqnS7FeKqe6wuS/WkQwVl0afYxErC.XxwuuRru',
     'comite',
     GETDATE(),
     'S'
@@ -755,7 +755,7 @@ VALUES
 
 (
     'director@chetumal.tecnm.mx',
-    '$2y$10$wH7xYJm0L9Y9YwLw2uQ6bOVB3dLxjX9Wj5q8zQxJ3A0v1VQmM8m6G',
+    '$2y$10$FiAIS6kwuPJO3OFdqnS7FeKqe6wuS/WkQwVl0afYxErC.XxwuuRru',
     'director',
     GETDATE(),
     'S'
@@ -763,7 +763,7 @@ VALUES
 
 (
     'division@chetumal.tecnm.mx',
-    '$2y$10$wH7xYJm0L9Y9YwLw2uQ6bOVB3dLxjX9Wj5q8zQxJ3A0v1VQmM8m6G',
+    '$2y$10$FiAIS6kwuPJO3OFdqnS7FeKqe6wuS/WkQwVl0afYxErC.XxwuuRru',
     'division_ep',
     GETDATE(),
     'S'
@@ -771,7 +771,7 @@ VALUES
 
 (
     'responsable@chetumal.tecnm.mx',
-    '$2y$10$wH7xYJm0L9Y9YwLw2uQ6bOVB3dLxjX9Wj5q8zQxJ3A0v1VQmM8m6G',
+    '$2y$10$FiAIS6kwuPJO3OFdqnS7FeKqe6wuS/WkQwVl0afYxErC.XxwuuRru',
     'responsable',
     GETDATE(),
     'S'
@@ -779,7 +779,7 @@ VALUES
 
 (
     'servicios@chetumal.tecnm.mx',
-    '$2y$10$wH7xYJm0L9Y9YwLw2uQ6bOVB3dLxjX9Wj5q8zQxJ3A0v1VQmM8m6G',
+    '$2y$10$FiAIS6kwuPJO3OFdqnS7FeKqe6wuS/WkQwVl0afYxErC.XxwuuRru',
     'servicios_escolares',
     GETDATE(),
     'S'
@@ -898,6 +898,6 @@ VALUES
     'Ruiz',
     'Morales'
 );
-/*UPDATE usuarios
-SET password = '$2y$10$Z87CdC48SRdona4I7Ss/EeFYXanNi8JMXse3fsKKlOb3vuytdnvAm'
+UPDATE usuarios
+SET password = '$2y$10$FiAIS6kwuPJO3OFdqnS7FeKqe6wuS/WkQwVl0afYxErC.XxwuuRru'
 WHERE idUser IN (1,2,3,4,5,6);*/

@@ -34,6 +34,7 @@ $sql = "SELECT
         ac.nombreActividadComplementaria,
         ac.descripcionActividadComplementaria,
         ac.creditosAsignados,
+        ac.cupoMax,
         ac.estadoActividad,
         ta.nombreTipoActComplementaria
         FROM actividadComplementaria ac
@@ -279,6 +280,7 @@ href="../../assets/css/comite/comite_Vw.css">
 
                         <th>Actividad</th>
                         <th>Tipo</th>
+                        <th>Cupo</th>
                         <th>Estado</th>
                         <th>Acciones</th>
 
@@ -301,20 +303,22 @@ href="../../assets/css/comite/comite_Vw.css">
                         </td>
 
                         <td>
+                            <?= $actividad['cupoMax'] ?>
+                        </td>
 
+                        <td>
                             <span class="status pending">
-                                En revisión
+                            En revisión
                             </span>
-
                         </td>
 
                         <td>
 
                             <a
-href="?id=<?= $actividad['idActividadComplementarias'] ?>"
+                            href="?id=<?= $actividad['idActividadComplementarias'] ?>"
                             class="table-btn"
                             >
-                                Revisar
+                            Revisar
                             </a>
 
                         </td>

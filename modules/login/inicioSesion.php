@@ -80,7 +80,7 @@ if(
     )
 ){
 
-    die("contraseña incorrectos");
+    die("Correo o contraseña incorrectos");
 
 }
 

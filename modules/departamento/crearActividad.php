@@ -40,6 +40,10 @@ $descripcion = trim(
     $_POST['descripcion']
 );
 
+$cupoMax = trim(
+    $_POST['cupoMax']
+);
+
 /* =========================================
    VALIDACIONES
 ========================================= */
@@ -47,13 +51,26 @@ $descripcion = trim(
 if(
     empty($nombreActividad) ||
     empty($idTipoActividad) ||
-    empty($descripcion)
+    empty($descripcion) ||
+    empty($cupoMax)
 ){
 
     die("Todos los campos son obligatorios");
 
 }
 
+/* =========================================
+   VALIDAR CUPO
+========================================= */
+
+if(
+    $cupoMax < 1 ||
+    $cupoMax > 500
+){
+
+    die("Cupo máximo inválido");
+
+}
 /* =========================================
    OBTENER ID DEPARTAMENTO
 ========================================= */
@@ -85,31 +102,34 @@ $idDepartamento = $departamento['idDepartamento'];
 try{
 
     $sql = "INSERT INTO actividadComplementaria
-    (
-        idDepartamento,
-        idTipoActividadComplementaria,
-        nombreActividadComplementaria,
-        descripcionActividadComplementaria,
-        creditosAsignados,
-        estadoActividad
-    )
+(
+    idDepartamento,
+    idTipoActividadComplementaria,
+    nombreActividadComplementaria,
+    descripcionActividadComplementaria,
+    creditosAsignados,
+    estadoActividad,
+    cupoMax
+)
 
-    VALUES
-    (
-        ?, ?, ?, ?, 0, 'R'
-    )";
+VALUES
+(
+    ?, ?, ?, ?, 0, 'R', ?
+)";
 
     $stmt = $conexion->prepare($sql);
 
     $stmt->execute([
 
-        $idDepartamento,
-        $idTipoActividad,
+    $idDepartamento,
+    $idTipoActividad,
 
-        $nombreActividad,
-        $descripcion
+    $nombreActividad,
+    $descripcion,
 
-    ]);
+    $cupoMax
+
+]);
 
     header(
         "Location: ../../views/departamento/departamento_Vw.php"

@@ -223,6 +223,29 @@ $tipoActividades = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
           </div>
 
+          <!-- CUPO MÁXIMO -->
+
+<div class="input-group">
+
+  <label>Cupo máximo</label>
+
+  <div class="input-wrapper">
+
+    <i class="fa-solid fa-users"></i>
+
+    <input
+      type="number"
+      name="cupoMax"
+      min="1"
+      max="500"
+      placeholder="Ingrese el cupo máximo"
+      required
+    >
+
+  </div>
+
+</div>
+
           <!-- CREDITOS 
 
           <div class="input-group">
