@@ -102,7 +102,7 @@ switch($usuario['rol']){
 
     case 'estudiante':
 
-        header("Location: ../../views/estudiante/dashboard.php");
+        header("Location: ../../views/estudiante/estudiante_Vw.php");
         break;
 
     case 'departamento':
