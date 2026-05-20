@@ -1,5 +1,5 @@
 -- ============================================================
--- Sistema de Cr√©ditos Complementarios ‚Äî TecNM
+-- Sistema de CrÈditos Complementarios ó TecNM
 -- ============================================================
 
 IF DB_ID('sistema_creditos_complementarios') IS NULL
@@ -8,11 +8,12 @@ BEGIN
 END
 GO
 
+
 USE sistema_creditos_complementarios;
 GO
 
 -- ============================================================
--- 1. AUTENTICACI√ìN
+-- 1. AUTENTICACI”N
 -- ============================================================
 
 CREATE TABLE usuarios (
@@ -214,14 +215,12 @@ CREATE TABLE expedienteEstudiante (
 
     CONSTRAINT FK_expediente_estudiante
         FOREIGN KEY (idEstudiante)
-        REFERENCES estudiante(idEstudiante),
-
-
+        REFERENCES estudiante(idEstudiante)
 );
 GO
 
 -- ============================================================
--- 4. CAT√ÅLOGO DE ACTIVIDADES
+-- 4. CAT¡LOGO DE ACTIVIDADES
 -- ============================================================
 
 CREATE TABLE tipoActividad (
@@ -284,38 +283,10 @@ ALTER TABLE actividadComplementaria
 ADD CONSTRAINT DF_actividad_estado DEFAULT 'P' FOR estadoActividad;
 GO
 
--- 3. Aplicamos la regla de validaci√≥n para las letras ('D','R','A','X')
+-- 3. Aplicamos la regla de validaciÛn para las letras ('D','R','A','X')
 ALTER TABLE actividadComplementaria 
 ADD CONSTRAINT CK_actividad_estado CHECK  (estadoActividad IN ('D','R','A','X'));
 GO*/
-
-
-CREATE TABLE dictamenActividad (
-    idDictamenActividadComplementaria INT IDENTITY(1,1) NOT NULL,
-
-    idDirector INT NOT NULL,
-    idRevisionActividadComplementaria INT NOT NULL,
-
-
-    fechaDictamen DATE NOT NULL,
-
-    observacion VARCHAR(300) NULL,
-
-    estadoDictamen CHAR(1) NOT NULL
-        CHECK (estadoDictamen IN ('D','A','X')),
-
-    CONSTRAINT PK_dictamen PRIMARY KEY (idDictamenActividadComplementaria),
-
-    CONSTRAINT FK_dictamen_director
-        FOREIGN KEY (idDirector)
-        REFERENCES director(idDirector),
-
-    CONSTRAINT FK_dictamen_actividad
-        FOREIGN KEY (idRevisionActividadComplementaria)
-        REFERENCES ActividadComplementariaRevisada(idRevisionActividadComplementaria),
-
-);
-GO
 
 CREATE TABLE ActividadComplementariaRevisada (
     idRevisionActividadComplementaria INT IDENTITY(1,1) NOT NULL,
@@ -344,7 +315,7 @@ CREATE TABLE ActividadComplementariaRevisada (
 
 	CONSTRAINT FK_actividad_comite
         FOREIGN KEY (idComiteAcademico)
-        REFERENCES comiteAcademico(idComiteAcademico),
+        REFERENCES comiteAcademico(idComiteAcademico)
 );
 GO
 /*-- 1. Modificamos la columna por si necesitas asegurar el tipo de dato
@@ -358,6 +329,34 @@ ALTER TABLE ActividadComplementariaRevisada
 ADD CONSTRAINT CK_actividad_revision 
 CHECK (estadoRevision IN ('D', 'A', 'X'));
 GO*/
+
+CREATE TABLE dictamenActividad (
+    idDictamenActividadComplementaria INT IDENTITY(1,1) NOT NULL,
+
+    idDirector INT NOT NULL,
+    idRevisionActividadComplementaria INT NOT NULL,
+
+
+    fechaDictamen DATE NOT NULL,
+
+    observacion VARCHAR(300) NULL,
+
+    estadoDictamen CHAR(1) NOT NULL
+        CHECK (estadoDictamen IN ('D','A','X')),
+
+    CONSTRAINT PK_dictamen PRIMARY KEY (idDictamenActividadComplementaria),
+
+    CONSTRAINT FK_dictamen_director
+        FOREIGN KEY (idDirector)
+        REFERENCES director(idDirector),
+
+    CONSTRAINT FK_dictamen_actividad
+        FOREIGN KEY (idRevisionActividadComplementaria)
+        REFERENCES ActividadComplementariaRevisada(idRevisionActividadComplementaria)
+
+);
+GO
+
 CREATE TABLE catalogoActividadComplementaria (
     idCatalogoActividadComplementaria INT IDENTITY(1,1) NOT NULL,
 
@@ -401,7 +400,7 @@ CREATE TABLE asignaResponsableActividadComplementaria (
 GO
 
 -- ============================================================
--- 5. INSCRIPCI√ìN
+-- 5. INSCRIPCI”N
 -- ============================================================
 
 CREATE TABLE inscripcionActividadComplementaria (
@@ -441,7 +440,7 @@ CREATE TABLE inscripcionActividadComplementaria (
 GO
 
 -- ============================================================
--- 6. EVIDENCIAS Y EVALUACI√ìN
+-- 6. EVIDENCIAS Y EVALUACI”N
 -- ============================================================
 
 CREATE TABLE evidenciaEstudiante (
@@ -483,9 +482,9 @@ CREATE TABLE evaluacionEstudiante (
 
     observaciones VARCHAR(300) NULL,
 
-    nivelDesempe√±oAlcanzado VARCHAR(20) NOT NULL
+    nivelDesempeÒoAlcanzado VARCHAR(20) NOT NULL
         CHECK (
-            nivelDesempe√±oAlcanzado IN (
+            nivelDesempeÒoAlcanzado IN (
                 'Excelente',
                 'Notable',
                 'Bueno',
@@ -521,9 +520,9 @@ CREATE TABLE evaluacionCriterio (
     idNumCriterio TINYINT NOT NULL,
     idEvaluacion INT NOT NULL,
 
-    nivelDesempe√±o VARCHAR(15) NOT NULL
+    nivelDesempeÒo VARCHAR(15) NOT NULL
         CHECK (
-            nivelDesempe√±o IN (
+            nivelDesempeÒo IN (
                 'Excelente',
                 'Notable',
                 'Bueno',
@@ -687,40 +686,40 @@ GO
 --CARRERAS
 INSERT INTO carrera (nombreCarrera)
 VALUES
-('Ingenier√≠a en Administraci√≥n'),
+('IngenierÌa en AdministraciÛn'),
 
-('Licenciatura en Administraci√≥n'),
+('Licenciatura en AdministraciÛn'),
 
 ('Arquitectura'),
 
-('Licenciatura en Biolog√≠a'),
+('Licenciatura en BiologÌa'),
 
 ('Licenciatura en Turismo'),
 
-('Ingenier√≠a Civil'),
+('IngenierÌa Civil'),
 
-('Contador P√∫blico'),
+('Contador P˙blico'),
 
-('Ingenier√≠a El√©ctrica'),
+('IngenierÌa ElÈctrica'),
 
-('Ingenier√≠a Electromec√°nica'),
+('IngenierÌa Electromec·nica'),
 
-('Ingenier√≠a en Gesti√≥n Empresarial'),
+('IngenierÌa en GestiÛn Empresarial'),
 
-('Ingenier√≠a en Desarrollo de Aplicaciones'),
+('IngenierÌa en Desarrollo de Aplicaciones'),
 
-('Ingenier√≠a en Sistemas Computacionales'),
+('IngenierÌa en Sistemas Computacionales'),
 
-('Ingenier√≠a en Tecnolog√≠as de la Informaci√≥n y Comunicaciones');
+('IngenierÌa en TecnologÌas de la InformaciÛn y Comunicaciones');
 
 --TIPOS DE ACTIVIDADES
 INSERT INTO tipoActividad (nombreTipoActComplementaria)
 VALUES
 ('Monitor Estudiante'),
 
-('Asesor√≠as Acad√©micas en funci√≥n de un programa implementado por asignatura'),
+('AsesorÌas AcadÈmicas en funciÛn de un programa implementado por asignatura'),
 
-('Cursos de Superaci√≥n Acad√©mica');
+('Cursos de SuperaciÛn AcadÈmica');
 
 USE sistema_creditos_complementarios;
 GO
@@ -799,14 +798,14 @@ INSERT INTO departamentos
 )
 VALUES
 (
-    7,
+    1, -- Se cambiÛ de 7 a 1 para corresponder al ID autogenerado real de usuarios
     'Carlos',
     'Ramirez',
     'Lopez'
 );
 
 /* =========================================================
-   COMIT√â ACAD√âMICO
+   COMIT… ACAD…MICO
 ========================================================= */
 
 INSERT INTO comiteAcademico
@@ -818,8 +817,8 @@ INSERT INTO comiteAcademico
 )
 VALUES
 (
-    8,
-    'Mar√≠a',
+    2, -- Se cambiÛ de 8 a 2 para corresponder al ID autogenerado real de usuarios
+    'MarÌa',
     'Gonzalez',
     'Hernandez'
 );
@@ -837,14 +836,14 @@ INSERT INTO director
 )
 VALUES
 (
-    9,
-    'Jos√©',
+    3, -- Se cambiÛ de 9 a 3 para corresponder al ID autogenerado real de usuarios
+    'JosÈ',
     'Martinez',
     'Castillo'
 );
 
 /* =========================================================
-   DIVISI√ìN DE ESTUDIOS PROFESIONALES
+   DIVISI”N DE ESTUDIOS PROFESIONALES
 ========================================================= */
 
 INSERT INTO divisionEstudiosProfesionales
@@ -856,9 +855,9 @@ INSERT INTO divisionEstudiosProfesionales
 )
 VALUES
 (
-    10,
+    4, -- Se cambiÛ de 10 a 4 para corresponder al ID autogenerado real de usuarios
     'Ana',
-    'P√©rez',
+    'PÈrez',
     'Vargas'
 );
 
@@ -875,7 +874,7 @@ INSERT INTO responsableActividadComplementaria
 )
 VALUES
 (
-    11,
+    5, -- Se cambiÛ de 11 a 5 para corresponder al ID autogenerado real de usuarios
     'Luis',
     'Torres',
     'Mendoza'
@@ -894,11 +893,11 @@ INSERT INTO serviciosEscolares
 )
 VALUES
 (
-    12,
+    6, -- Se cambiÛ de 12 a 6 para corresponder al ID autogenerado real de usuarios
     'Fernanda',
     'Ruiz',
     'Morales'
 );
 /*UPDATE usuarios
 SET password = '$2y$10$Z87CdC48SRdona4I7Ss/EeFYXanNi8JMXse3fsKKlOb3vuytdnvAm'
-WHERE idUser IN (7,8,9,10,11,12);*/
+WHERE idUser IN (1,2,3,4,5,6);*/
