@@ -80,7 +80,7 @@ if(
     )
 ){
 
-    die("Correo o contraseña incorrectos");
+    die("contraseña incorrectos");
 
 }
 
@@ -107,12 +107,12 @@ switch($usuario['rol']){
 
     case 'departamento':
 
-        header("Location: ../../views/departamento/dashboard.php");
+        header("Location: ../../views/departamento/departamento_Vw.php");
         break;
 
     case 'comite':
 
-        header("Location: ../../views/comite/dashboard.php");
+        header("Location: ../../views/comite/comite_Vw.php");
         break;
 
     case 'director':

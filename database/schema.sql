@@ -251,7 +251,7 @@ CREATE TABLE actividadComplementaria (
 
     estadoActividad CHAR(1) NOT NULL
         CONSTRAINT DF_actividad_estado DEFAULT 'P'
-        CHECK (estadoActividad IN ('P','R','A','X')),
+        CHECK (estadoActividad IN ('D','R','A','X')),
 
     CONSTRAINT PK_actividad PRIMARY KEY (idActividadComplementarias),
 
@@ -268,11 +268,54 @@ CREATE TABLE actividadComplementaria (
         CHECK (creditosAsignados BETWEEN 0 AND 2)
 );
 GO
+/*
+-- 1. Primero eliminamos las restricciones anteriores para que no choquen
+-- (Si te da error porque no encuentra alguna, puedes saltar al paso 2)
+ALTER TABLE actividadComplementaria DROP CONSTRAINT IF EXISTS CK__actividad__estad__619B8048;
+GO
+
+-- 2. Aplicamos el valor por defecto 'P'
+ALTER TABLE actividadComplementaria 
+ADD CONSTRAINT DF_actividad_estado DEFAULT 'P' FOR estadoActividad;
+GO
+
+-- 3. Aplicamos la regla de validación para las letras ('D','R','A','X')
+ALTER TABLE actividadComplementaria 
+ADD CONSTRAINT CK_actividad_estado CHECK  (estadoActividad IN ('D','R','A','X'));
+GO*/
+
+
+CREATE TABLE dictamenActividad (
+    idDictamenActividadComplementaria INT IDENTITY(1,1) NOT NULL,
+
+    idDirector INT NOT NULL,
+    idRevisionActividadComplementaria INT NOT NULL,
+
+
+    fechaDictamen DATE NOT NULL,
+
+    observacion VARCHAR(300) NULL,
+
+    estadoDictamen CHAR(1) NOT NULL
+        CHECK (estadoDictamen IN ('D','A','X')),
+
+    CONSTRAINT PK_dictamen PRIMARY KEY (idDictamenActividadComplementaria),
+
+    CONSTRAINT FK_dictamen_director
+        FOREIGN KEY (idDirector)
+        REFERENCES director(idDirector),
+
+    CONSTRAINT FK_dictamen_actividad
+        FOREIGN KEY (idRevisionActividadComplementaria)
+        REFERENCES ActividadComplementariaRevisada(idRevisionActividadComplementaria),
+
+);
+GO
 
 CREATE TABLE ActividadComplementariaRevisada (
     idRevisionActividadComplementaria INT IDENTITY(1,1) NOT NULL,
 
-    idDirector INT NOT NULL,
+    --idDirector INT NOT NULL,
     idActividadComplementarias INT NOT NULL,
 	idComiteAcademico INT NOT NULL,
 
@@ -282,13 +325,13 @@ CREATE TABLE ActividadComplementariaRevisada (
     observacion VARCHAR(300) NULL,
 
     estadoRevision CHAR(1) NOT NULL
-        CHECK (estadoRevision IN ('R','A','X')),
+        CHECK (estadoRevision IN ('D','A','X')),
 
     CONSTRAINT PK_revision PRIMARY KEY (idRevisionActividadComplementaria),
 
-    CONSTRAINT FK_revision_director
+ /*   CONSTRAINT FK_revision_director
         FOREIGN KEY (idDirector)
-        REFERENCES director(idDirector),
+        REFERENCES director(idDirector),*/
 
     CONSTRAINT FK_revision_actividad
         FOREIGN KEY (idActividadComplementarias)
@@ -299,7 +342,17 @@ CREATE TABLE ActividadComplementariaRevisada (
         REFERENCES comiteAcademico(idComiteAcademico),
 );
 GO
+/*-- 1. Modificamos la columna por si necesitas asegurar el tipo de dato
+ALTER TABLE ActividadComplementariaRevisada
+ALTER COLUMN estadoRevision CHAR(1) NOT NULL;
+GO
 
+-- 2. Agregamos el nuevo CHECK con un nombre propio para que no se duplique
+-- (Cambia las letras 'D', 'A', 'X' por las nuevas que necesites si es el caso)
+ALTER TABLE ActividadComplementariaRevisada
+ADD CONSTRAINT CK_actividad_revision 
+CHECK (estadoRevision IN ('D', 'A', 'X'));
+GO*/
 CREATE TABLE catalogoActividadComplementaria (
     idCatalogoActividadComplementaria INT IDENTITY(1,1) NOT NULL,
 
@@ -627,6 +680,9 @@ GO
 -- ============================================================
 -- REGISTROS INICIALES
 -- ============================================================
+-- ============================================================
+-- ============================================================
+--CARRERAS
 INSERT INTO carrera (nombreCarrera)
 VALUES
 ('Ingeniería en Administración'),
@@ -654,3 +710,193 @@ VALUES
 ('Ingeniería en Sistemas Computacionales'),
 
 ('Ingeniería en Tecnologías de la Información y Comunicaciones');
+
+--TIPOS DE ACTIVIDADES
+INSERT INTO tipoActividad (nombreTipoActComplementaria)
+VALUES
+('Monitor Estudiante'),
+
+('Asesorías Académicas en función de un programa implementado por asignatura'),
+
+('Cursos de Superación Académica');
+
+USE sistema_creditos_complementarios;
+GO
+
+/* 
+   USUARIOS ADMINISTRATIVOS
+ */
+
+INSERT INTO usuarios
+(
+    correoInst,
+    password,
+    rol,
+    fechaCreacion,
+    activo
+)
+VALUES
+(
+    'departamento@chetumal.tecnm.mx',
+    '$2y$10$wH7xYJm0L9Y9YwLw2uQ6bOVB3dLxjX9Wj5q8zQxJ3A0v1VQmM8m6G',
+    'departamento',
+    GETDATE(),
+    'S'
+),
+
+(
+    'comite@chetumal.tecnm.mx',
+    '$2y$10$wH7xYJm0L9Y9YwLw2uQ6bOVB3dLxjX9Wj5q8zQxJ3A0v1VQmM8m6G',
+    'comite',
+    GETDATE(),
+    'S'
+),
+
+(
+    'director@chetumal.tecnm.mx',
+    '$2y$10$wH7xYJm0L9Y9YwLw2uQ6bOVB3dLxjX9Wj5q8zQxJ3A0v1VQmM8m6G',
+    'director',
+    GETDATE(),
+    'S'
+),
+
+(
+    'division@chetumal.tecnm.mx',
+    '$2y$10$wH7xYJm0L9Y9YwLw2uQ6bOVB3dLxjX9Wj5q8zQxJ3A0v1VQmM8m6G',
+    'division_ep',
+    GETDATE(),
+    'S'
+),
+
+(
+    'responsable@chetumal.tecnm.mx',
+    '$2y$10$wH7xYJm0L9Y9YwLw2uQ6bOVB3dLxjX9Wj5q8zQxJ3A0v1VQmM8m6G',
+    'responsable',
+    GETDATE(),
+    'S'
+),
+
+(
+    'servicios@chetumal.tecnm.mx',
+    '$2y$10$wH7xYJm0L9Y9YwLw2uQ6bOVB3dLxjX9Wj5q8zQxJ3A0v1VQmM8m6G',
+    'servicios_escolares',
+    GETDATE(),
+    'S'
+);
+GO
+/* =========================================================
+   DEPARTAMENTOS
+========================================================= */
+
+INSERT INTO departamentos
+(
+    idUser,
+    nombre,
+    primerApellido,
+    segundoApellido
+)
+VALUES
+(
+    7,
+    'Carlos',
+    'Ramirez',
+    'Lopez'
+);
+
+/* =========================================================
+   COMITÉ ACADÉMICO
+========================================================= */
+
+INSERT INTO comiteAcademico
+(
+    idUser,
+    nombre,
+    primerApellido,
+    segundoApellido
+)
+VALUES
+(
+    8,
+    'María',
+    'Gonzalez',
+    'Hernandez'
+);
+
+/* =========================================================
+   DIRECTOR
+========================================================= */
+
+INSERT INTO director
+(
+    idUser,
+    nombre,
+    primerApellido,
+    segundoApellido
+)
+VALUES
+(
+    9,
+    'José',
+    'Martinez',
+    'Castillo'
+);
+
+/* =========================================================
+   DIVISIÓN DE ESTUDIOS PROFESIONALES
+========================================================= */
+
+INSERT INTO divisionEstudiosProfesionales
+(
+    idUser,
+    nombre,
+    primerApellido,
+    segundoApellido
+)
+VALUES
+(
+    10,
+    'Ana',
+    'Pérez',
+    'Vargas'
+);
+
+/* =========================================================
+   RESPONSABLE ACTIVIDAD COMPLEMENTARIA
+========================================================= */
+
+INSERT INTO responsableActividadComplementaria
+(
+    idUser,
+    nombreResponsable,
+    primerApellido,
+    segundoApellido
+)
+VALUES
+(
+    11,
+    'Luis',
+    'Torres',
+    'Mendoza'
+);
+
+/* =========================================================
+   SERVICIOS ESCOLARES
+========================================================= */
+
+INSERT INTO serviciosEscolares
+(
+    idUser,
+    nombre,
+    primerApellido,
+    segundoApellido
+)
+VALUES
+(
+    12,
+    'Fernanda',
+    'Ruiz',
+    'Morales'
+);
+/*UPDATE usuarios
+SET password = '$2y$10$Z87CdC48SRdona4I7Ss/EeFYXanNi8JMXse3fsKKlOb3vuytdnvAm'
+WHERE idUser IN (7,8,9,10,11,12);*/
