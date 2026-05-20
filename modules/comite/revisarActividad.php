@@ -198,7 +198,7 @@ try{
         (
             idActividadComplementarias,
             idComiteAcademico,
-            observaciones,
+            observacion,
             fechaRevision,
             resultadoRevision
         )

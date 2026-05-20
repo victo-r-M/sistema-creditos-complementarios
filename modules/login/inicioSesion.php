@@ -117,7 +117,7 @@ switch($usuario['rol']){
 
     case 'director':
 
-        header("Location: ../../views/director/dashboard.php");
+        header("Location: ../../views/director/director_Vw.php");
         break;
 
     case 'division_ep':
